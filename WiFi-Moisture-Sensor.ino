@@ -12,7 +12,7 @@ const char* host = "192.168.4.1";
 void setup() {
   pinMode(LED_PIN, OUTPUT);
   
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("Starting moisture sensor");
 
   // WiFi begin
