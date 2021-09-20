@@ -35,13 +35,13 @@ void loop() {
     WiFiClient client;
   
     Serial.printf("\n[Connecting to %s ... ", host);
-    if (client.connect(host, 80)) {
+    if(client.connect(host, 80)) {
       Serial.println("connected]");
   
       Serial.println("[Sending a request]");
       
       client.println("POST /sensor/index.php HTTP/1.1");
-      client.println("Host: " + host);
+      client.println(strcat("Host: ", host));
       client.println("User-Agent: Arduino/1.0");
       client.println("Content-Type: application/x-www-form-urlencoded;");
       client.print("Content-Length: ");
@@ -50,8 +50,8 @@ void loop() {
       client.println("data=" + sensor_data + "&id=" + SENSOR_ID);
   
       Serial.println("[Response:]");
-      while (client.connected() || client.available()) {
-        if (client.available()) {
+      while(client.connected() || client.available()) {
+        if(client.available()) {
           String line = client.readStringUntil('\n');
           Serial.println(line);
           if(line.indexOf("data_sent_ok") > 0) { data_sent = true; }
