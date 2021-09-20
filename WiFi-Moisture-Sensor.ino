@@ -48,7 +48,7 @@ void loop() {
   
       Serial.println("[Sending a request]");
       
-      client.println("POST /sensor/index.php HTTP/1.1");
+      client.println("POST /sensor HTTP/1.1");
       client.println(strcat("Host: ", host));
       client.println("User-Agent: Arduino/1.0");
       client.println("Content-Type: application/x-www-form-urlencoded;");
