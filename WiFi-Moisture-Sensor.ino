@@ -10,6 +10,8 @@ const char* password = "esphub_sensor";
 const char* host = "192.168.4.1";
 
 void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  
   Serial.begin(9600);
   Serial.println("Starting moisture sensor");
 
@@ -18,13 +20,18 @@ void setup() {
   WiFi.begin(ssid, password);
   while(WiFi.status() != WL_CONNECTED) {
     digitalWrite(LED_PIN, LOW);
-    delay(500); 
+    delay(250); 
     digitalWrite(LED_PIN, HIGH);
+    delay(250);
     Serial.print(".");
   }
   Serial.println(" connected");
-
-  pinMode(LED_PIN, OUTPUT);
+  for(int i; i<10; i++) {
+    digitalWrite(LED_PIN, LOW);
+    delay(50);
+    digitalWrite(LED_PIN, HIGH);
+    delay(50);
+  }
 }
 
 void loop() {
@@ -35,6 +42,7 @@ void loop() {
     WiFiClient client;
   
     Serial.printf("\n[Connecting to %s ... ", host);
+    digitalWrite(LED_PIN, LOW);
     if(client.connect(host, 80)) {
       Serial.println("connected]");
   
@@ -65,6 +73,8 @@ void loop() {
       Serial.println("connection failed!]");
       client.stop();
     }
+    delay(10);
+    digitalWrite(LED_PIN, HIGH);
     delay(500);
   }
   
